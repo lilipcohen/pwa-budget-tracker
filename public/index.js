@@ -121,7 +121,8 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-  .then(response => {    
+    .then(response => {   
+    console.log(response)
     return response.json();
   })
   .then(data => {
@@ -142,6 +143,13 @@ function sendTransaction(isAdding) {
     nameEl.value = "";
     amountEl.value = "";
   });
+}
+
+function saveRecord(transaction) {
+  localStorage.setItem("transactions", [transaction])
+  const oldTransactions = JSON.parse(localStorage.getItem("transactions")) || []
+  oldTransactions.push(transaction)
+  //save back into local storage and stringify
 }
 
 document.querySelector("#add-btn").onclick = function() {

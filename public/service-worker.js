@@ -44,14 +44,14 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener("fetch", function(evt) {
-  const {url} = evt.request;
-  if (url.includes("/all") || url.includes("/find")) {
+  const {url,} = evt.request;
+  if (url.includes("/api")) {
     evt.respondWith(
-      caches.open(DATA_CACHE_NAME).then(cache => {
+      caches.open(PRECACHE).then(cache => {
         return fetch(evt.request)
           .then(response => {
             // If the response was good, clone it and store it in the cache.
-            if (response.status === 200) {
+            if (response.status === 200 && response.method === "GET") {
               cache.put(evt.request, response.clone());
             }
 
