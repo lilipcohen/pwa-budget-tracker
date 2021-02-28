@@ -146,10 +146,13 @@ function sendTransaction(isAdding) {
 }
 
 function saveRecord(transaction) {
-  localStorage.setItem("transactions", [transaction])
+  localStorage.setItem("transactions", JSON.stringify(transaction))
   const oldTransactions = JSON.parse(localStorage.getItem("transactions")) || []
   oldTransactions.push(transaction)
-  //save back into local storage and stringify
+  // save back into local storage and stringify
+  const newTransaction = JSON.stringify(transaction)
+  localStorage.setItem("new", [newTransaction])
+  localStorage.getItem(newTransaction)
 }
 
 document.querySelector("#add-btn").onclick = function() {
